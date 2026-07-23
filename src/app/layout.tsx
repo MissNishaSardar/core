@@ -1,37 +1,34 @@
-import Header from "@/components/Header/Header";
-import ThemeProvider from "@/components/Providers/ThemeProvider";
+import type { Metadata } from "next";
 import { notoSansHeading, nunitoSans } from "@/lib/fonts";
-import { cn } from "@/lib/utils";
+import { TooltipProvider } from "@/components/shadcnui/tooltip";
+import ThemeProvider from "@/components/Providers/ThemeProvider";
 import { ReactNode } from "react";
 import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Core",
+  description: "Core application",
+};
 
 type RootLayoutProps = Readonly<{
   children: ReactNode;
 }>;
 
-const RootLayout = ({ children }: RootLayoutProps) => {
-  return (
-    <html
-      lang="en"
-      className={cn(
-        "antialiased",
-        "font-sans",
-        nunitoSans.variable,
-        notoSansHeading.variable,
-      )}
-      suppressHydrationWarning>
-      <body>
-        <ThemeProvider
-          attribute={"class"}
-          defaultTheme="dark"
-          enableSystem={false}>
-          <Header />
-
-          <main className="mx-auto max-w-7xl">{children}</main>
-        </ThemeProvider>
-      </body>
-    </html>
-  );
-};
+const RootLayout = ({ children }: RootLayoutProps) => (
+  <html lang="en" suppressHydrationWarning>
+    <body
+      className={`${notoSansHeading.variable} ${nunitoSans.variable} font-sans antialiased`}
+    >
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="dark"
+        enableSystem={false}
+        disableTransitionOnChange
+      >
+        <TooltipProvider>{children}</TooltipProvider>
+      </ThemeProvider>
+    </body>
+  </html>
+);
 
 export default RootLayout;

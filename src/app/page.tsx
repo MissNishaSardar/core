@@ -1,24 +1,13 @@
-import ToastButton from "@/components/Buttons/ToastButton";
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Next.js Starter Fullstack",
-  description: "Production grade Fullstack Next.js starter template",
+  title: "Core",
+  description: "Core application",
 };
 
-const page = () => {
-  return (
-    <section className="grid h-dvh place-items-center">
-      <div className="space-y-4 text-center">
-        <h1 className="text-5xl font-semibold">Next.js Starter Fullstack</h1>
-        <h2 className="text-3xl">
-          Production grade Fullstack Next.js starter template
-        </h2>
-
-        <ToastButton />
-      </div>
-    </section>
-  );
+const RootPage = () => {
+  redirect("/auth/login");
 };
 
-export default page;
+export default RootPage;
