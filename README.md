@@ -40,21 +40,26 @@ bun dev                  # localhost:3000
 ## Dashboard Routes
 
 ```
-/dashboard/home           Home
-/dashboard/inbox          Global inbox
-/dashboard/my-tasks       Tasks across all workspaces
-/dashboard/today          Tasks due today
-/dashboard/upcoming       Tasks due this week
-/dashboard/personal/...   Personal workspace pages
-/dashboard/[workspace]    Workspace home (dynamic)
-/dashboard/[workspace]/[team]/[board]  Kanban boards
-/dashboard/workspaces/new Create workspace
-/dashboard/settings       Settings
+/dashboard/home               Home
+/dashboard/inbox              Global inbox
+/dashboard/my-tasks           Tasks across all workspaces
+/dashboard/today              Tasks due today
+/dashboard/upcoming           Tasks due this week
+/dashboard/personal/...       Personal workspace pages
+/dashboard/[slug]                 Project list (workspace home)
+/dashboard/[slug]/projects/new    Create project
+/dashboard/[slug]/projects/[id]   Kanban board (ReUI, drag-and-drop)
+/dashboard/[slug]/members         Manage members & invitations
+/dashboard/[slug]/settings        Rename / delete workspace
+/dashboard/workspaces/new         Create workspace (team)
+/dashboard/settings               Settings
 ```
 
 ## Plugins
 
-- Better Auth Organizations plugin not yet wired — sidebar workspaces are placeholder data. See `ponytail:` comments in `sidebar.tsx` and `TeamSwitcher.tsx`.
+- Better Auth Organizations plugin wired — team CRUD, member roles, and invitations backed by the plugin.
+- `sendInvitationEmail` in `src/lib/auth.ts` logs to console — swap to a real email provider for production.
+- `/accept-invitation/[id]` — auto-accepts invitation on mount, redirects to dashboard.
 
 ## Conventions
 

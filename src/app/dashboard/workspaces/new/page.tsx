@@ -1,6 +1,8 @@
+import { CreateTeamForm } from "@/components/Teams/CreateTeamForm";
+
 const NewWorkspacePage = () => (
   <div className="p-6">
-    <h1 className="text-2xl font-bold">Create Workspace</h1>
+    <CreateTeamForm />
   </div>
 );
 

@@ -1,7 +1,14 @@
-const WorkspacePage = () => (
-  <div className="p-6">
-    <h1 className="text-2xl font-bold">Workspace</h1>
-  </div>
-);
+import ProjectList from "@/components/Projects/ProjectList";
+
+type PageProps = { params: Promise<{ slug: string }> };
+
+const WorkspacePage = async ({ params }: PageProps) => {
+  const { slug } = await params;
+  return (
+    <div className="p-6">
+      <ProjectList slug={slug} />
+    </div>
+  );
+};
 
 export default WorkspacePage;

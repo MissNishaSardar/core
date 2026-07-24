@@ -33,8 +33,8 @@ const UserMenu = ({ name, email, avatarSrc }: UserMenuProps) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex size-8 cursor-pointer items-center justify-center rounded-full outline-hidden">
-        <Avatar size="sm">
+      <DropdownMenuTrigger className="flex size-9 cursor-pointer items-center justify-center rounded-full outline-hidden">
+        <Avatar size="default">
           {avatarSrc ? <AvatarImage src={avatarSrc} alt={name} /> : null}
           <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>

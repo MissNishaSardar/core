@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import TeamSwitcher from "@/components/Profile/TeamSwitcher";
+import { ShowTeamSwitcher } from "@/components/Profile/ShowTeamSwitcher";
 import UserMenu from "@/components/Profile/UserMenu";
 import ThemeToggleButton from "@/components/Buttons/ThemeToggleButton";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
@@ -40,8 +40,8 @@ const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
             className="mr-2 data-[orientation=vertical]:h-4"
           />
           <BreadcrumbNav />
-          <TeamSwitcher />
-          <div className="ml-auto flex items-center gap-2">
+          <ShowTeamSwitcher />
+          <div className="ml-auto flex items-center gap-4">
             <ThemeToggleButton />
             <UserMenu name={name ?? "User"} email={email ?? ""} avatarSrc={image} />
           </div>

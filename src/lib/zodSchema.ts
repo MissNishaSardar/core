@@ -53,3 +53,38 @@ export const updateProfileSchema = z.object({
 });
 
 export type UpdateProfileType = z.infer<typeof updateProfileSchema>;
+
+export const createTeamSchema = z.object({
+  name: z.string().min(2, "Team name must be at least 2 characters").max(100),
+});
+
+export type CreateTeamType = z.infer<typeof createTeamSchema>;
+
+export const updateTeamSchema = z.object({
+  name: z.string().min(2, "Team name must be at least 2 characters").max(100),
+});
+
+export type UpdateTeamType = z.infer<typeof updateTeamSchema>;
+
+export const inviteMemberSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  role: z.enum(["member", "admin"]),
+});
+
+export type InviteMemberType = z.infer<typeof inviteMemberSchema>;
+
+export const createProjectSchema = z.object({
+  name: z.string().min(1, "Project name is required").max(200),
+  description: z.string().max(1000).optional().or(z.literal("")),
+});
+
+export type CreateProjectType = z.infer<typeof createProjectSchema>;
+
+export const updateTaskSchema = z.object({
+  title: z.string().min(1).max(500).optional(),
+  description: z.string().max(5000).optional().nullable(),
+  assigneeId: z.string().optional().nullable(),
+  dueDate: z.string().optional().nullable(),
+});
+
+export type UpdateTaskType = z.infer<typeof updateTaskSchema>;

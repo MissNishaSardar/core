@@ -29,9 +29,61 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+  members       Member[]
+  invitations   Invitation[] @relation("Invitations")
+  tasks         Task[]
 
   @@unique([email])
   @@map("user")
+}
+
+model Organization {
+  id        String   @id
+  name      String
+  slug      String
+  logo      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  metadata  String?
+
+  members     Member[]
+  invitations Invitation[]
+  projects    Project[]
+
+  @@unique([slug])
+  @@map("organization")
+}
+
+model Member {
+  id             String       @id
+  organizationId String
+  userId         String
+  role           String       @default("member")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+  @@map("member")
+}
+
+model Invitation {
+  id             String       @id
+  organizationId String
+  email          String
+  role           String
+  status         String       @default("pending")
+  expiresAt      DateTime
+  inviterId      String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  inviter      User         @relation("Invitations", fields: [inviterId], references: [id])
+
+  @@map("invitation")
 }
 
 model Session {
@@ -80,4 +132,51 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model Project {
+  id             String   @id @default(cuid())
+  name           String
+  description    String?
+  status         String   @default("active")
+  organizationId String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  columns      Column[]
+  tasks        Task[]
+
+  @@map("project")
+}
+
+model Column {
+  id        String @id @default(cuid())
+  name      String
+  position  Int
+  projectId String
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks   Task[]
+
+  @@map("column")
+}
+
+model Task {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  position    Int
+  dueDate     DateTime?
+  assigneeId  String?
+  columnId    String
+  projectId   String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  column   Column  @relation(fields: [columnId], references: [id], onDelete: Cascade)
+  assignee User?   @relation(fields: [assigneeId], references: [id])
+  project  Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("task")
 }

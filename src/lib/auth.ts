@@ -1,7 +1,9 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
+import { organization } from "better-auth/plugins";
 import prisma from "@/lib/database/dbClient";
+import { serverEnv } from "@/lib/env/serverEnv";
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "sqlite",
@@ -24,5 +26,14 @@ export const auth = betterAuth({
   advanced: {
     useSecureCookies: process.env.NODE_ENV === "production",
   },
-  plugins: [nextCookies()],
+  plugins: [
+    nextCookies(),
+    organization({
+      async sendInvitationEmail(data) {
+        const link = `${serverEnv.BETTER_AUTH_URL}/accept-invitation/${data.id}`;
+        // ponytail: swap to real email provider (Resend, SendGrid, etc.)
+        console.log(`[auth] Invite ${data.email} to ${data.organization.name}: ${link}`);
+      },
+    }),
+  ],
 });
