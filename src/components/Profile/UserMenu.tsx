@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LogOutIcon, SettingsIcon } from "lucide-react";
+import { LogOutIcon, SettingsIcon, UserIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -44,6 +44,10 @@ const UserMenu = ({ name, email, avatarSrc }: UserMenuProps) => {
           <span className="text-sm font-medium">{name}</span>
           <span className="text-xs text-muted-foreground">{email}</span>
         </div>
+        <DropdownMenuItem render={<Link href="/dashboard/profile" />}>
+          <UserIcon />
+          View Profile
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem render={<Link href="/dashboard/settings" />}>
           <SettingsIcon />

@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import TeamSwitcher from "@/components/Profile/TeamSwitcher";
 import UserMenu from "@/components/Profile/UserMenu";
 import ThemeToggleButton from "@/components/Buttons/ThemeToggleButton";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 import { Sidebar } from "@/components/Sidebar";
 import { Separator } from "@/components/shadcnui/separator";
 import {
@@ -38,6 +39,7 @@ const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
             orientation="vertical"
             className="mr-2 data-[orientation=vertical]:h-4"
           />
+          <BreadcrumbNav />
           <TeamSwitcher />
           <div className="ml-auto flex items-center gap-2">
             <ThemeToggleButton />

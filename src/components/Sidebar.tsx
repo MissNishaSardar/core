@@ -176,6 +176,12 @@ const Sidebar = () => (
         <SidebarGroupContent>
           <SidebarMenu>
             <SidebarMenuItem>
+              <SidebarMenuButton render={<Link href="/dashboard/profile" />} tooltip="Profile">
+                <UserIcon />
+                <span>Profile</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
               <SidebarMenuButton render={<Link href="/dashboard/settings" />} tooltip="Settings">
                 <SettingsIcon />
                 <span>Settings</span>
